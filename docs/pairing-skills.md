@@ -40,6 +40,11 @@ Ký hiệu: `*` = cần adapter note (mục Adapter). Không `*` = dùng trực 
 - verification-loop: thay lệnh mẫu npm-centric bằng lệnh verify của repo (mục [ĐIỀN] trong WORKFLOW.md); report gắn vào plan hoặc báo P7.
 - kotlin-testing: gate coverage 80% cứng vs frame "proof phù hợp" — lấy min, ghi vào plan.
 - ai-regression-testing: ví dụ JS-centric, map runner theo repo.
+- verify-before-claiming: verdict đúng trên docs/framework chưa đủ để suy ra
+  corollary về cả hệ thống — phải truy vòng đời của app (ai gọi hàm, khi nào,
+  state nằm ở đâu) trước khi kết luận. Corollary sai dù verdict đúng vẫn là fail
+  (case 2026-09-30: docs libxposed đúng nhưng kết luận bug sai vì bỏ qua
+  đường commit lúc lưu settings).
 
 **Ghi decision có type:**
 - judge: mục "Quyết định" của exec-plan có format `choice + confidence`
@@ -49,10 +54,20 @@ Ký hiệu: `*` = cần adapter note (mục Adapter). Không `*` = dùng trực 
 - to-tickets: tickets là section trong cùng plan file; chỉ externalize ra tracker/file riêng khi repo dùng tracker thật và Boss duyệt.
 - technical-scoping-workflow: scoping deliverable merge vào exec-plan theo bảng "Ghép spec của skill vào exec-plan".
 - code-review: tìm spec source ưu tiên `docs/plans/active/` trước issue tracker.
+- code-review: khi review fix dạng normalize/sanitize/trim, liệt kê hết các
+  điểm cùng hình dạng trong hàm (grep `split(`/`trim(`…) — không chỉ review
+  trong phạm vi diff. Bug hay sót ở tầng transform lồng nhau mà diff không chạm
+  (case 2026-09-30: sót 2 split `/` trong khi diff chỉ trim `:`/`,`).
 
 **Môi trường Pi:**
 - context-budget: map path Claude Code (agents/, .mcp.json, CLAUDE.md) sang môi trường Pi (`~/workspace/skills/`, `~/.config/mcp/mcp.json`).
 - handoff: luôn link tới plan đang active ở `docs/plans/active/`, không duplicate nội dung.
+
+**Lane song song (multi-agent):**
+- Các lane chia sẻ cùng spec/plan file; lane nào không đọc được spec thì ghi
+  rõ giả định trong plan của mình, không bịa.
+- Kết quả các lane vênh nhau (verdict ngược, lựa chọn khác) không chốt bằng
+  "đa số" — phải verify độc lập từng mắt xích rồi adjudicate bằng bằng chứng.
 
 ## Loại khỏi harness
 
