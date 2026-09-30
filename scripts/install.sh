@@ -45,7 +45,8 @@ copy_if_absent "$SRC/docs/decisions/README.md"       "$DEST/docs/decisions/READM
 copy_if_absent "$SRC/docs/templates/exec-plan.md"    "$DEST/docs/templates/exec-plan.md"
 copy_if_absent "$SRC/docs/templates/decision.md"     "$DEST/docs/templates/decision.md"
 copy_if_absent "$SRC/docs/patterns/encoding-invariants.md" "$DEST/docs/patterns/encoding-invariants.md"
-copy_if_absent "$SRC/docs/pairing-mattpocock.md"     "$DEST/docs/pairing-mattpocock.md"
+copy_if_absent "$SRC/docs/pairing-skills.md"          "$DEST/docs/pairing-skills.md"
+copy_if_absent "$SRC/LICENSE"                        "$DEST/LICENSE"
 
 # 3. AGENTS.md: chưa có thì tạo từ mẫu; có rồi thì prepend khối HARNESS
 HARNESS_BEGIN="<!-- HARNESS:BEGIN -->"
@@ -68,3 +69,10 @@ else
 fi
 
 echo "Xong. Điền các placeholder [ĐIỀN] trong docs/WORKFLOW.md và AGENTS.md cho repo của bạn."
+
+# Cảnh báo nếu docs/ bị .gitignore nuốt: plan/ADR sẽ chỉ nằm local, không vào git.
+if [ -d "$DEST/.git" ] && git -C "$DEST" check-ignore -q docs/WORKFLOW.md 2>/dev/null; then
+  rule="$(git -C "$DEST" check-ignore -v docs/WORKFLOW.md 2>/dev/null | cut -d: -f3 | cut -f1)"
+  echo "CẢNH BÁO: docs/ bị .gitignore nuốt (rule:$rule)." >&2
+  echo "Plan/ADR sẽ chỉ nằm local, không vào git — thêm whitelist vào .gitignore nếu muốn version chúng." >&2
+fi

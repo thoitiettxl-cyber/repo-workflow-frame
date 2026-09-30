@@ -10,4 +10,5 @@
 - `templates/` — mẫu `exec-plan.md` và `decision.md`.
 - `patterns/encoding-invariants.md` — pattern mã hóa invariant thành check
   cơ học.
-- `pairing-mattpocock.md` — bảng ghép skill mattpocock vào khung.
+- `pairing-skills.md` — harness: workflow làm trung tâm, skill vệ tinh
+  (bản đồ phase → skill, adapter, loại, hợp nhất).

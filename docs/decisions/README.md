@@ -22,3 +22,9 @@ trong active plan, chỉ promote cái lasting thành ADR ở đây.
 
 Quyết định bị thay thế: giữ file cũ, thêm dòng "Superseded by NNNN" ở đầu,
 không xóa lịch sử — để agent không nhầm authority cũ với hành vi hiện tại.
+
+## Mục lục
+
+| ADR | Tiêu đề | Trạng thái | Ngày |
+|-----|---------|------------|------|
+| (chưa có) | | | |

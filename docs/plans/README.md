@@ -11,7 +11,7 @@ Kế hoạch cho các việc kéo dài nhiều session, nhiều bước, hoặc 
   - cần khôi phục (recovery) nếu dở dang,
   - không thể resume an toàn chỉ từ git diff.
 - Một việc = một file plan duy nhất, đặt trong `active/`, theo mẫu
-  `docs/templates/exec-plan.md`. Tiến độ và quyết định cục bộ ghi chung
-  trong file plan, không tách nhiều file song song nếu không có đối tượng đọc
-  riêng.
-- Việc xong và đã verify → chuyển file sang `completed/`.
+  `docs/templates/exec-plan.md`. Tên file: kebab-case `^[a-z0-9-]+\.md$`,
+  ví dụ `add-naming-convention-check.md` (không cần số thứ tự như ADR).
+- Việc xong và đã verify → đổi `## Trạng thái` thành Completed trong file,
+  rồi mới chuyển file sang `completed/`.

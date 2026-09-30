@@ -41,6 +41,8 @@ Chuỗi bước nhỏ nhất thành một khối coherent. Cập nhật khi bằ
 ## Quyết định
 
 - YYYY-MM-DD: quyết định cục bộ trong lúc làm + lý do.
+- Decision có dùng `judge` (typed): ghi thêm `choice` + `confidence`
+  (vd: `choice: A — dùng plan file; confidence: 0.9`) để không mất dữ liệu typed.
 
 Promote quyết định lasting về sản phẩm/kiến trúc thành ADR trong
 `docs/decisions/`.

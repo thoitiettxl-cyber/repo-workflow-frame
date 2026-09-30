@@ -24,7 +24,7 @@ Một repo mà agent (người hoặc AI) cùng làm việc lâu dài cần ba t
   [mattpocock/skills](https://github.com/mattpocock/skills) (`to-spec`,
   `implement`, `code-review`, `diagnosing-bugs`...) dạy *cách làm* từng việc;
   output của chúng được đặt đúng chỗ mà khung quy định
-  (xem `docs/pairing-mattpocock.md`).
+  (xem `docs/pairing-skills.md`).
 
 Đường ray không thay đầu máy, đầu máy không thay đường ray.
 
@@ -44,7 +44,7 @@ docs/
 │   └── decision.md           # mẫu ADR
 ├── patterns/
 │   └── encoding-invariants.md # pattern mã hóa invariant thành check cơ học
-└── pairing-mattpocock.md     # bảng ghép skill mattpocock vào khung
+└── pairing-skills.md          # harness: workflow trung tâm, skill vệ tinh
 scripts/
 └── install.sh                # dựng khung vào repo bất kỳ
 ```

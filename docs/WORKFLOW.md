@@ -5,7 +5,7 @@ code, test và tín hiệu runtime của repo là nguồn sự thật.
 
 ## Bản đồ repo
 
-- `AGENTS.md`: bản đồ入口 và ranh giới thẩm quyền.
+- `AGENTS.md`: bản đồ điểm vào và ranh giới thẩm quyền.
 - `README.md`, `docs/` (product, architecture, decisions): ý định và ràng buộc
   hiện tại.
 - `docs/plans/`: việc bền vững; `docs/templates/`: mẫu plan/ADR.
