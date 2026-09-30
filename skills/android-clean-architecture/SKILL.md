@@ -337,4 +337,4 @@ plugins { id("kmp-library") }
 ## References
 
 See skill: `compose-multiplatform-patterns` for UI patterns.
-See skill: `kotlin-coroutines-flows` for async patterns.
+See skill: `kotlin-patterns` for async patterns.

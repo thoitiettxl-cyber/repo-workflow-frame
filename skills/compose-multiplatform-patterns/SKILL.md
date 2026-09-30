@@ -297,4 +297,4 @@ fun AppTheme(
 ## References
 
 See skill: `android-clean-architecture` for module structure and layering.
-See skill: `kotlin-coroutines-flows` for coroutine and Flow patterns.
+See skill: `kotlin-patterns` for coroutine and Flow patterns.
