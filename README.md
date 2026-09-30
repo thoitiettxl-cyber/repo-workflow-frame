@@ -20,11 +20,11 @@ Một repo mà agent (người hoặc AI) cùng làm việc lâu dài cần ba t
 
 - **Khung này là đường ray**: nó quy định việc nằm ở đâu, kỷ luật thế nào,
   chuẩn hoàn tất ra sao. Nó không dạy cách làm từng việc cụ thể.
-- **Skill là đầu máy** chạy trên đường ray đó: ví dụ bộ skill
-  [mattpocock/skills](https://github.com/mattpocock/skills) (`to-spec`,
-  `implement`, `code-review`, `diagnosing-bugs`...) dạy *cách làm* từng việc;
-  output của chúng được đặt đúng chỗ mà khung quy định
-  (xem `docs/pairing-skills.md`).
+- **Skill là đầu máy** chạy trên đường ray đó: 52 skill trong
+  `docs/pairing-skills.md` đã bundle sẵn ở `skills/` (nguồn + license:
+  `skills/SOURCES.md`); cài bằng `scripts/install.sh --with-skills`.
+  Skill dạy *cách làm* từng việc; output của chúng được đặt đúng chỗ
+  mà khung quy định.
 
 Đường ray không thay đầu máy, đầu máy không thay đường ray.
 
@@ -46,7 +46,8 @@ docs/
 │   └── encoding-invariants.md # pattern mã hóa invariant thành check cơ học
 └── pairing-skills.md          # harness: workflow trung tâm, skill vệ tinh
 scripts/
-└── install.sh                # dựng khung vào repo bất kỳ
+└── install.sh                # dựng khung vào repo bất kỳ (+ opt-in cài skill bundle)
+skills/                       # 52 skill vệ tinh (SOURCES.md: nguồn + license)
 ```
 
 ## Dùng nhanh
@@ -55,6 +56,8 @@ Dựng khung vào một repo có sẵn (idempotent — chạy nhiều lần an t
 
 ```bash
 ./scripts/install.sh /đường/dẫn/tới/repo
+# kèm skill bundle (52 skill) vào thư mục skill của bạn:
+./scripts/install.sh /đường/dẫn/tới/repo --with-skills [--skills-dir DIR]
 ```
 
 Script sẽ tạo cây `docs/{plans/{active,completed},decisions,templates,patterns}`,

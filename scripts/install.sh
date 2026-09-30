@@ -1,15 +1,27 @@
 #!/usr/bin/env bash
 # Dựng khung repo-workflow-frame vào một repo có sẵn.
-# Cách dùng: ./install.sh /đường/dẫn/tới/repo
+# Cách dùng: ./install.sh /đường/dẫn/tới/repo [--with-skills|--without-skills] [--skills-dir DIR]
 # Idempotent: chạy nhiều lần không tạo trùng lặp.
 set -euo pipefail
 
-if [ $# -ne 1 ]; then
-  echo "Dùng: $0 /đường/dẫn/tới/repo" >&2
+if [ $# -lt 1 ]; then
+  echo "Dùng: $0 /đường/dẫn/tới/repo [--with-skills|--without-skills] [--skills-dir DIR]" >&2
   exit 1
 fi
 
-DEST="$1"
+DEST="$1"; shift
+WITH_SKILLS=""
+SKILLS_DIR="${HOME}/workspace/skills"
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --with-skills) WITH_SKILLS="yes" ;;
+    --without-skills) WITH_SKILLS="no" ;;
+    --skills-dir)
+      SKILLS_DIR="$2"; shift ;;
+    *) echo "Flag lạ: $1" >&2; exit 1 ;;
+  esac
+  shift
+done
 if [ ! -d "$DEST" ]; then
   echo "Không tìm thấy thư mục: $DEST" >&2
   exit 1
@@ -75,4 +87,29 @@ if [ -d "$DEST/.git" ] && git -C "$DEST" check-ignore -q docs/WORKFLOW.md 2>/dev
   rule="$(git -C "$DEST" check-ignore -v docs/WORKFLOW.md 2>/dev/null | cut -d: -f3 | cut -f1)"
   echo "CẢNH BÁO: docs/ bị .gitignore nuốt (rule:$rule)." >&2
   echo "Plan/ADR sẽ chỉ nằm local, không vào git — thêm whitelist vào .gitignore nếu muốn version chúng." >&2
+fi
+
+# 4. Skill bundle (opt-in): copy 52 skill trong skills/ vào thư mục skill của user.
+# Không có flag và stdin là terminal thì hỏi; chạy nền/non-interactive thì bỏ qua.
+if [ -z "$WITH_SKILLS" ]; then
+  if [ -t 0 ]; then
+    printf 'Cài skill bundle (52 skill) vào %s? [y/N] ' "$SKILLS_DIR"
+    read -r ans
+    case "$ans" in [yY]*) WITH_SKILLS="yes" ;; *) WITH_SKILLS="no" ;; esac
+  else
+    WITH_SKILLS="no"
+  fi
+fi
+
+if [ "$WITH_SKILLS" = "yes" ]; then
+  mkdir -p "$SKILLS_DIR"
+  # Không --delete: skill user tự thêm không bị xóa; bản bundle mới ghi đè bản cũ.
+  # README.md/SOURCES.md là metadata của bundle, không phải skill → loại ra.
+  if command -v rsync >/dev/null 2>&1; then
+    rsync -a --exclude='/README.md' --exclude='/SOURCES.md' \
+      "$SRC/skills/" "$SKILLS_DIR/"
+  else
+    for d in "$SRC/skills/"*/; do cp -rf "$d" "$SKILLS_DIR/"; done
+  fi
+  echo "đã cài skill bundle vào: $SKILLS_DIR ($(ls "$SKILLS_DIR" | wc -l) mục)"
 fi

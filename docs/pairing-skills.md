@@ -6,6 +6,10 @@ không nằm trong bộ ghép — skill vẫn giữ nguyên trong kho, không x�
 
 Ký hiệu: `*` = cần adapter note (mục Adapter). Không `*` = dùng trực tiếp.
 
+Skill bundle: 52 skill trong bản đồ dưới đã bundle sẵn ở `skills/` của repo
+(nguồn + license: `skills/SOURCES.md`); cài vào máy bằng
+`scripts/install.sh --with-skills`. Skill `triage` không bundle (loại khỏi harness).
+
 ## Bản đồ phase → skill
 
 | Phase | Skill |

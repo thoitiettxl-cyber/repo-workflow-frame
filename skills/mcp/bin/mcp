@@ -1,0 +1,4 @@
+#!/bin/sh
+# wrapper: run the MCP adapter with its own venv, no activation needed
+HERE="$(dirname "$0")"
+exec "$HERE/../.venv/bin/python" "$HERE/mcp_adapter.py" "$@"
