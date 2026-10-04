@@ -54,3 +54,7 @@ Optional: `TYPESAFE_BASE_URL` (default `https://api.typesafe.ai`), `TYPESAFE_DEF
 3. Treat `confidence` as distribution concentration, not permission to act: low confidence on a harmless preference choice is fine; a `noul` near 0.5 means genuine ambiguity, escalate or gather evidence.
 4. Keep policy in code, not in the question: thresholds, weights, and escalation rules live with the caller; the judgment stays a reusable typed signal.
 5. Validate with `--validate` before wiring a new question set into a script or scheduled job.
+6. Never put secrets (API keys, tokens, passwords, private key material) into
+   a judged `state` — the judgment never needs the raw value. Redact or
+   summarize code containing secrets before sending (cf. review-loop's
+   secret-scan.sh pattern).

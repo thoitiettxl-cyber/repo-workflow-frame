@@ -1,6 +1,6 @@
 # Nguồn skill trong bundle
 
-54 skill khớp đúng bản đồ phase → skill trong
+56 skill khớp đúng bản đồ phase → skill trong
 [`docs/pairing-skills.md`](../docs/pairing-skills.md). Skill **triage** không
 bundle (đã loại khỏi harness — xem pairing doc).
 
@@ -13,7 +13,7 @@ thì giữ nguyên ở đó.
 | research, code-review, diagnosing-bugs, grilling, grill-with-docs, codebase-design, handoff, implement, resolving-merge-conflicts, to-spec, to-tickets, wayfinder, wizard, writing-for-agents | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT © 2026 Matt Pocock |
 | ai-regression-testing, eval-harness, verification-loop, kotlin-testing, kotlin-patterns, android-clean-architecture, api-design, compose-multiplatform-patterns, error-handling, agent-self-evaluation, agent-architecture-audit, context-budget, parallel-execution-optimizer, documentation-lookup, tdd-workflow, git-workflow | [affaan-m/ecc](https://github.com/affaan-m/ecc) | MIT © 2026 Affaan Mustafa |
 | uv, update-changelog, summarize, librarian, ghidra, commit, github | [mitsuhiko/agent-stuff](https://github.com/mitsuhiko/agent-stuff) | xem repo gốc |
-| judge, mcp, search-playbook | Pi/Muse tự build | MIT (theo frame) |
+| judge, mcp, search-playbook, review-loop, preflight-edit | Pi/Muse tự build | MIT (theo frame) |
 | mcp-builder, yeet | Boss (filebin zip, 2026-09-30) | Apache-2.0 (`LICENSE.txt` trong thư mục skill) |
 | verify-before-claiming, golang-patterns, technical-scoping-workflow | Boss (filebin zip, 2026-09-30) | không rõ — giữ nguyên nội dung gốc |
 | typesafe-ai | [typesafe-ai/skills](https://github.com/typesafe-ai/skills) | MIT |
