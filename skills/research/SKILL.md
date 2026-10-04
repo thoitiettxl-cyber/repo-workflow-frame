@@ -41,13 +41,20 @@ mis-cited line numbers would have gone straight to the final report.
    other's work. Each writes its own findings file with file:line (or
    source link) per claim. Claims the team cannot verify get labeled
    `[GUESS]` — honestly, in the open.
-2. **Cross-attack:** swap reports. Each team attacks ONLY the evidence:
+2. **Already-exists check (bắt buộc khi finding map vào repo mình):**
+   trước khi đề xuất "repo mình nên làm X", team phải grep repo mình và
+   kết luận có evidence: **ĐÃ CÓ** (trỏ file:dòng hiện tại) hoặc **CHƯA CÓ**.
+   Không được đề xuất cái đã tồn tại (bài học HMA-OSS F12, 2026-10-04:
+   build-time secret đã có từ PR #53 mà research vẫn đề xuất "nên làm").
+3. **Cross-attack:** swap reports. Each team attacks ONLY the evidence:
    which claim lacks a source? which file:line is wrong? which inference
-   jumps? Verdict per finding: **SURVIVES** (stands), **REFUTED** (wrong,
+   jumps? **Attack the mapping premise too** — not just "does the source
+   really do X?" but also "does OUR repo really lack X?" (bài học F12).
+   Verdict per finding: **SURVIVES** (stands), **REFUTED** (wrong,
    with counter-evidence), **WEAKENED** (core right, detail/label wrong).
    Fair play: findings honestly labeled `[GUESS]` are not attacked —
    only claims stated with confidence.
-3. **Synthesis:** the coordinator writes the final REPORT from surviving
+4. **Synthesis:** the coordinator writes the final REPORT from surviving
    findings only, each with its evidence + verification level. Dropped
    findings are listed with their reason — they must not silently return.
 
