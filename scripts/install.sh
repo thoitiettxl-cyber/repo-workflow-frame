@@ -62,6 +62,7 @@ copy_if_absent "$SRC/docs/templates/decision.md"     "$DEST/docs/templates/decis
 copy_if_absent "$SRC/docs/templates/coordinator-brief.md" "$DEST/docs/templates/coordinator-brief.md"
 copy_if_absent "$SRC/docs/patterns/encoding-invariants.md" "$DEST/docs/patterns/encoding-invariants.md"
 copy_if_absent "$SRC/docs/pairing-skills.md"          "$DEST/docs/pairing-skills.md"
+copy_if_absent "$SRC/docs/adaptive-doctrine.md"       "$DEST/docs/adaptive-doctrine.md"
 copy_if_absent "$SRC/LICENSE"                        "$DEST/LICENSE"
 
 # 3. AGENTS.md: chưa có thì tạo từ mẫu; có rồi thì prepend khối HARNESS

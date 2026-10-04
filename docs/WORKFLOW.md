@@ -65,6 +65,12 @@ Với ranh giới kiến trúc / reliability / security / quality
 
 Không tự ý đổi CI, hook hay branch protection khi chưa được duyệt riêng.
 
+### Nền tảng sai thì sao? (Học thuyết thích nghi)
+
+Khi runtime, CI, tool hay OS không hành xử như tài liệu: đừng chờ upstream
+sửa — dựng workaround tối thiểu, ghi lại, rồi tiến hoá nó sau mỗi lần chạy
+(quan sát trước, enforce sau). Chi tiết: `docs/adaptive-doctrine.md`.
+
 ## Các luồng việc
 
 ### Đọc / review / chẩn đoán (read-only)

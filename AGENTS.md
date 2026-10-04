@@ -22,6 +22,8 @@ code, validation).
   "Quy tắc bắt buộc" bên dưới.
 - Báo xong chỉ với bằng chứng chạy được hoặc quan sát được. Báo cáo tách bạch
   outcome, thay đổi, validation và rủi ro chưa giải quyết.
+- Nền tảng/runtime sai thì tự thích nghi: workaround tối thiểu, ghi lại, tiến
+  hoá sau mỗi lần chạy — xem `docs/adaptive-doctrine.md`.
 <!-- HARNESS:END -->
 
 ## Quy tắc bắt buộc
