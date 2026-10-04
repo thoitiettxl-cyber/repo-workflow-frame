@@ -23,6 +23,11 @@ resume an toàn được chỉ từ git diff. Giữ outcome, ngữ cảnh, cách
 tiến độ, quyết định và validation trong cùng một file; xong và đã verify thì
 move sang `docs/plans/completed/`.
 
+**Chiến dịch subagent** là plan hạng nhất: mở `docs/plans/active/<slug>/`
+theo layout campaign-plan (xem `docs/plans/active/README.md`) TRƯỚC KHI
+dispatch worker đầu tiên; brief lấy từ `docs/templates/coordinator-brief.md`.
+Không chạy campaign ngoài harness.
+
 ### Việc có cần người quyết?
 
 Trước khi sửa, xác định thẩm quyền cho policy mới quan sát được từ bên ngoài.

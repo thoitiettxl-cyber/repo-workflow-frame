@@ -30,6 +30,9 @@ fi
 # Thư mục chứa script này = root của repo-workflow-frame
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
 
+# Số skill trong bundle (trừ README.md/SOURCES.md là metadata)
+SKILL_COUNT="$(ls "$SRC/skills" | grep -v -x -e README.md -e SOURCES.md | wc -l)"
+
 # 1. Tạo cây thư mục docs
 mkdir -p "$DEST/docs/plans/active" \
          "$DEST/docs/plans/completed" \
@@ -56,6 +59,7 @@ copy_if_absent "$SRC/docs/plans/completed/README.md" "$DEST/docs/plans/completed
 copy_if_absent "$SRC/docs/decisions/README.md"       "$DEST/docs/decisions/README.md"
 copy_if_absent "$SRC/docs/templates/exec-plan.md"    "$DEST/docs/templates/exec-plan.md"
 copy_if_absent "$SRC/docs/templates/decision.md"     "$DEST/docs/templates/decision.md"
+copy_if_absent "$SRC/docs/templates/coordinator-brief.md" "$DEST/docs/templates/coordinator-brief.md"
 copy_if_absent "$SRC/docs/patterns/encoding-invariants.md" "$DEST/docs/patterns/encoding-invariants.md"
 copy_if_absent "$SRC/docs/pairing-skills.md"          "$DEST/docs/pairing-skills.md"
 copy_if_absent "$SRC/LICENSE"                        "$DEST/LICENSE"
@@ -89,11 +93,11 @@ if [ -d "$DEST/.git" ] && git -C "$DEST" check-ignore -q docs/WORKFLOW.md 2>/dev
   echo "Plan/ADR sẽ chỉ nằm local, không vào git — thêm whitelist vào .gitignore nếu muốn version chúng." >&2
 fi
 
-# 4. Skill bundle (opt-in): copy 52 skill trong skills/ vào thư mục skill của user.
+# 4. Skill bundle (opt-in): copy toàn bộ skill trong skills/ vào thư mục skill của user.
 # Không có flag và stdin là terminal thì hỏi; chạy nền/non-interactive thì bỏ qua.
 if [ -z "$WITH_SKILLS" ]; then
   if [ -t 0 ]; then
-    printf 'Cài skill bundle (52 skill) vào %s? [y/N] ' "$SKILLS_DIR"
+    printf 'Cài skill bundle (%s skill) vào %s? [y/N] ' "$SKILL_COUNT" "$SKILLS_DIR"
     read -r ans
     case "$ans" in [yY]*) WITH_SKILLS="yes" ;; *) WITH_SKILLS="no" ;; esac
   else
@@ -112,4 +116,19 @@ if [ "$WITH_SKILLS" = "yes" ]; then
     for d in "$SRC/skills/"*/; do cp -rf "$d" "$SKILLS_DIR/"; done
   fi
   echo "đã cài skill bundle vào: $SKILLS_DIR ($(ls "$SKILLS_DIR" | wc -l) mục)"
+fi
+
+# 5. Gác cổng pre-commit (githooks): copy script chuẩn + cài vào .git/hooks.
+# Idempotent; mặc định warn mode (chỉ log, không chặn commit).
+if [ ! -d "$DEST/scripts/githooks" ]; then
+  mkdir -p "$DEST/scripts"
+  cp -r "$SRC/scripts/githooks" "$DEST/scripts/githooks"
+  echo "đã tạo: $DEST/scripts/githooks/"
+else
+  echo "giữ nguyên (đã có): $DEST/scripts/githooks/"
+fi
+if [ -d "$DEST/.git" ]; then
+  (cd "$DEST" && bash scripts/githooks/install.sh)
+else
+  echo "bỏ qua cài hook: $DEST chưa phải git repo (chạy scripts/githooks/install.sh sau khi git init)"
 fi

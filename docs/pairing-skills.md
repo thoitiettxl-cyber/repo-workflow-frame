@@ -15,11 +15,11 @@ Skill bundle: 52 skill trong bản đồ dưới đã bundle sẵn ở `skills/`
 | Phase | Skill |
 |---|---|
 | P0 Chọn hình thức việc | technical-scoping-workflow*, to-spec*, wayfinder*, handoff |
-| P1 Thẩm quyền (dừng-hỏi) | grilling*, judge*, verify-before-claiming, wizard, to-spec* (seams check = gate P1) |
+| P1 Thẩm quyền (dừng-hỏi) | grilling*, grill-with-docs*, judge*, verify-before-claiming, wizard, to-spec* (seams check = gate P1) |
 | P2 Chứng minh hành vi | search-playbook, ai-regression-testing, verify-before-claiming, tdd-workflow*, verification-loop*, eval-harness*, kotlin-testing*, parallel-execution-optimizer |
 | P3 Mã hóa invariant | (không skill — frame tự cover qua `docs/patterns/encoding-invariants.md`) |
 | P4 Read-only | onboard-repository, diagnosing-bugs*, engineering-wisdom, research*, agent-architecture-audit*, code-review*, librarian, apk-reverse*, binary-diff* |
-| P5 Bounded change | commit, git-workflow*, implement*, resolving-merge-conflicts*, tdd-workflow* |
+| P5 Bounded change | commit, git-workflow*, implement*, resolving-merge-conflicts*, tdd-workflow*, codebase-design* |
 | P6 Plan change | implement*, to-spec*, to-tickets*, wayfinder*, commit, handoff, technical-scoping-workflow* |
 | P7 Chuẩn hoàn tất | agent-self-evaluation, update-changelog, verification-loop*, eval-harness*, yeet |
 | PX Domain/tool | mcp, documentation-lookup, summarize, uv, ghidra, mcp-builder, golang-patterns, kotlin-patterns, cloudflare, wrangler, workers-best-practices, typesafe-ai, context-budget*, android-clean-architecture, api-design, compose-multiplatform-patterns, error-handling, writing-for-agents, github, reverse-engineering* (playbook tham khảo, không chạy script) |
@@ -35,6 +35,7 @@ Skill bundle: 52 skill trong bản đồ dưới đã bundle sẵn ở `skills/`
 **Gate P1 của frame override skill:**
 - apk-reverse / binary-diff: khối "ACTION REQUIRED — đọc xong thực thi ngay" bị gate P1 override — vẫn dừng hỏi trước khi chạy.
 - grilling: gate tương tác — chỉ chạy khi có user live; chạy nền thì bỏ qua, không kẹt.
+- grill-with-docs: `disable-model-invocation` — chỉ chạy khi gọi rõ, không tự load; khác grilling ở chỗ đây là alignment interview ghi shared-understanding, không phải stress-test đối kháng.
 - git-workflow: tag/release theo quán tính "flow end-to-end" phải qua gate P1, hỏi Boss trước.
 - implement: "commit your work" theo gate của repo — repo không cho auto-commit thì giữ trong plan.
 - resolving-merge-conflicts: rule "never `--abort`" nhường P1 — hunk mơ hồ vật chất thì dừng hỏi, ghi trade-off vào plan/ADR trước commit.

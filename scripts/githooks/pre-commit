@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# pre-commit hook — "gác cổng" của pipeline preflight+review.
+#
+# Mỗi commit phải có "giấy phép" (stamp): hash của staged diff, do
+# scripts/githooks/stamp.sh đóng sau khi preflight-edit + review duyệt.
+#
+# - warn mode (mặc định): thiếu/sai stamp → chỉ ghi log, vẫn cho commit.
+# - enforcing mode: thiếu/sai stamp → chặn (exit 1).
+#
+# Đổi mode: echo enforcing > .git/githooks-mode  (mặc định: warn)
+# Thoát hiểm (chỉ root/hotfix): git commit --no-verify
+set -euo pipefail
+
+GIT_DIR="$(git rev-parse --git-dir)"
+MODE_FILE="$GIT_DIR/githooks-mode"
+STAMP_FILE="$GIT_DIR/preflight-stamp"
+LOG_FILE="$GIT_DIR/githooks.log"
+
+mode="warn"
+if [ -f "$MODE_FILE" ]; then
+  mode="$(tr -d '[:space:]' < "$MODE_FILE")"
+fi
+
+# Không có staged change (commit rỗng) → không có gì để verify
+if git diff --cached --quiet; then
+  exit 0
+fi
+
+staged_hash="$(git diff --cached --no-color | sha256sum | cut -d' ' -f1)"
+stamp=""
+if [ -f "$STAMP_FILE" ]; then
+  stamp="$(tr -d '[:space:]' < "$STAMP_FILE")"
+fi
+
+ts="$(date -u +%FT%TZ)"
+if [ -n "$stamp" ] && [ "$stamp" = "$staged_hash" ]; then
+  printf '%s mode=%s result=stamped\n' "$ts" "$mode" >> "$LOG_FILE"
+  exit 0
+fi
+
+printf '%s mode=%s result=unstamped\n' "$ts" "$mode" >> "$LOG_FILE"
+if [ "$mode" = "enforcing" ]; then
+  echo "BLOCKED: commit thiếu stamp preflight+review hợp lệ." >&2
+  echo "Đi qua pipeline (preflight-edit check/apply -> review -> scripts/githooks/stamp.sh) rồi commit lại." >&2
+  exit 1
+fi
+exit 0

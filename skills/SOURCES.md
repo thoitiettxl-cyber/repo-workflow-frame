@@ -1,6 +1,6 @@
 # Nguồn skill trong bundle
 
-52 skill khớp đúng bản đồ phase → skill trong
+54 skill khớp đúng bản đồ phase → skill trong
 [`docs/pairing-skills.md`](../docs/pairing-skills.md). Skill **triage** không
 bundle (đã loại khỏi harness — xem pairing doc).
 
@@ -10,7 +10,7 @@ thì giữ nguyên ở đó.
 
 | Skill | Nguồn | License |
 |---|---|---|
-| research, code-review, diagnosing-bugs, grilling, handoff, implement, resolving-merge-conflicts, to-spec, to-tickets, wayfinder, wizard, writing-for-agents | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT © 2026 Matt Pocock |
+| research, code-review, diagnosing-bugs, grilling, grill-with-docs, codebase-design, handoff, implement, resolving-merge-conflicts, to-spec, to-tickets, wayfinder, wizard, writing-for-agents | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT © 2026 Matt Pocock |
 | ai-regression-testing, eval-harness, verification-loop, kotlin-testing, kotlin-patterns, android-clean-architecture, api-design, compose-multiplatform-patterns, error-handling, agent-self-evaluation, agent-architecture-audit, context-budget, parallel-execution-optimizer, documentation-lookup, tdd-workflow, git-workflow | [affaan-m/ecc](https://github.com/affaan-m/ecc) | MIT © 2026 Affaan Mustafa |
 | uv, update-changelog, summarize, librarian, ghidra, commit, github | [mitsuhiko/agent-stuff](https://github.com/mitsuhiko/agent-stuff) | xem repo gốc |
 | judge, mcp, search-playbook | Pi/Muse tự build | MIT (theo frame) |

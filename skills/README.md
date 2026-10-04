@@ -1,6 +1,6 @@
 # Skill bundle
 
-Thư mục này chứa 52 skill mà `docs/pairing-skills.md` reference — đúng bộ
+Thư mục này chứa 54 skill mà `docs/pairing-skills.md` reference — đúng bộ
 "vệ tinh" của harness workflow-làm-trung-tâm.
 
 - Cài tự động (opt-in): `scripts/install.sh --with-skills /đường/dẫn/tới/repo`
