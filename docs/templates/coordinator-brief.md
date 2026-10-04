@@ -98,6 +98,12 @@ không bao giờ gây trùng việc.
 - Sau `git add`, trước `git commit`: chạy `scripts/githooks/stamp.sh` để đóng
   dấu staged diff (pre-commit hook verify; enforcing mode chặn commit không dấu).
   Worker KHÔNG BAO GIỜ dùng `git commit --no-verify`.
+- CI đỏ → writer fix, nhưng phân biệt (bài học hma-essence B4, 2026-10-04):
+  **cùng 1 lỗi đỏ 3 lần liên tiếp** → DỪNG, báo root/Boss ngay (going nowhere,
+  cấm attempt thứ 4 y hệt). **Mỗi lần 1 lỗi khác nhau** → được tiếp tục fix
+  (đó là tiến triển, không phải kẹt), nhưng mỗi attempt phải ghi chú
+  "lỗi cũ → lỗi mới" vào nhật ký batch. Trần cứng: 5 attempt/batch —
+  quá thì dừng, báo root/Boss.
 
 ## 5. Watchdog cron (dự phòng, root tạo trong chat của chiến dịch)
 
