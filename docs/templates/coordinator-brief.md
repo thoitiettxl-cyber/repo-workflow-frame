@@ -104,6 +104,12 @@ không bao giờ gây trùng việc.
   (đó là tiến triển, không phải kẹt), nhưng mỗi attempt phải ghi chú
   "lỗi cũ → lỗi mới" vào nhật ký batch. Trần cứng: 5 attempt/batch —
   quá thì dừng, báo root/Boss.
+- "Báo root/Boss" = **ghi file** `batches/<batch>-escalation.md` (trạng thái
+  batch, lỗi từng attempt, chẩn đoán của coordinator, đề xuất) TRƯỚC khi báo
+  bằng lời — báo miệng không tính. Root/Boss **đọc file xong mới quyết định**,
+  không hành động chỉ dựa vào preview hay chẩn đoán riêng
+  (bài học hma-essence B4, 2026-10-04: coordinator báo miệng, root fix theo ý
+  mình mà chưa đọc báo cáo — bước escalation thành diễn).
 
 ## 5. Watchdog cron (dự phòng, root tạo trong chat của chiến dịch)
 
