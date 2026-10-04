@@ -27,7 +27,7 @@ Skill bundle: 52 skill trong bản đồ dưới đã bundle sẵn ở `skills/`
 ## Adapter (vênh đã biết → cách xử lý)
 
 **Output về đúng nhà của frame:**
-- research: findings ghi vào plan file (Ngữ cảnh) hoặc `docs/plans/active/<slug>.research.md` — không tự tạo `docs/research/` ngoài frame.
+- research: findings ghi vào plan file (Ngữ cảnh) hoặc `docs/plans/active/<slug>.research.md` — không tự tạo `docs/research/` ngoài frame. Research sâu bắt buộc qua phase đối kháng (2 team độc lập → đổi bài công kích evidence SURVIVES/REFUTED/WEAKENED → chỉ finding sống sót vào REPORT) — xem `skills/research/SKILL.md`.
 - eval-harness: eval artifact đặt trong plan dir, không phải `.claude/evals/`.
 - to-spec: repo tắt issues thì plan trong `docs/plans/active/` chính là bản publish; "Do NOT interview" không áp dụng cho chỗ chưa chốt — để Open questions, không bịa (P1).
 - wayfinder: dùng local-markdown mode — map là 1 file trong `docs/plans/active/`, decision tickets là sections; ticket HITL chỉ chạy live, chạy nền thì bỏ qua.
