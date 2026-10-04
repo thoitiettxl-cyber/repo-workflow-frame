@@ -128,7 +128,11 @@ else
   echo "giữ nguyên (đã có): $DEST/scripts/githooks/"
 fi
 if [ -d "$DEST/.git" ]; then
-  (cd "$DEST" && bash scripts/githooks/install.sh)
+  if [ -x "$DEST/scripts/githooks/install.sh" ]; then
+    (cd "$DEST" && bash scripts/githooks/install.sh)
+  else
+    echo "bỏ qua cài hook: $DEST/scripts/githooks thiếu install.sh (tự cài tay nếu cần)"
+  fi
 else
   echo "bỏ qua cài hook: $DEST chưa phải git repo (chạy scripts/githooks/install.sh sau khi git init)"
 fi
