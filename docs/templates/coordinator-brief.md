@@ -98,6 +98,11 @@ không bao giờ gây trùng việc.
 - Sau `git add`, trước `git commit`: chạy `scripts/githooks/stamp.sh` để đóng
   dấu staged diff (pre-commit hook verify; enforcing mode chặn commit không dấu).
   Worker KHÔNG BAO GIỜ dùng `git commit --no-verify`.
+- **Thanh kiểm duyệt cực nghiêm (mặc định từ 2026-10-05, Boss duyệt):** reviewer
+  áp dụng `review-loop` §8 — API phải có citation (không bịa), comment khớp code
+  1-1, literal chính xác từng ký tự, không code chết; reviewer verify độc lập,
+  không tin lời writer. Brief chiến dịch nào muốn hạ thanh phải ghi rõ lý do và
+  được Boss duyệt — reviewer không bao giờ tự hạ.
 - CI đỏ → writer fix, nhưng phân biệt (bài học hma-essence B4, 2026-10-04):
   **cùng 1 lỗi đỏ 3 lần liên tiếp** → DỪNG, báo root/Boss ngay (going nowhere,
   cấm attempt thứ 4 y hệt). **Mỗi lần 1 lỗi khác nhau** → được tiếp tục fix
@@ -143,6 +148,37 @@ Cách làm mặc định: coordinator tự chạy checklist (inline, cost ~0). C
 lớn/nhiều batch: spawn 1 checker fresh-eyes riêng (tránh bias coordinator tự
 kiểm tra việc mình điều phối). Finding ghi vào `batches/<batch>-fable-check.md`
 — chỉ tạo file khi có finding, pass thì im lặng.
+
+---
+
+## 7. Smoke test chuyên sâu cho chiến dịch thêm script/tool
+
+(Bài học chiến dịch ghidra 2026-10-06: 5 script headless mới — smoke test phát
+hiện 1 bug crash thật (`AddressFactory.getAddress()` trả `null` chứ không
+throw → NPE mất output) và 1 bug wrapper (unquoted args expansion làm quote
+lọt vào regex → example SKILL.md sai thầm lặng). Cả hai chỉ lộ ra nhờ edge
+cases + persistence, happy path không bắt được.)
+
+Checklist 4 lớp, chạy trên binary/input thật, mỗi claim kèm evidence
+(log/output trích — không chấp nhận "chạy được" bằng lời):
+
+1. **Happy path** — mỗi script/tool mới chạy thành công, output đúng schema,
+   giá trị đúng (rename → đọc lại thấy tên mới; comment → read-back verified).
+2. **Edge cases** — input sai phải báo lỗi RÕ RÀNG, KHÔNG crash, exit code hợp
+   lý: địa chỉ không tồn tại, args thiếu/sai format, regex lỗi, range đảo
+   ngược, enum/type không hợp lệ. Đặc biệt: API nào **"trả null thay vì
+   throw"** thì bắt buộc null-check + message nêu rõ input lỗi.
+3. **Persistence** (nếu tool có state) — state ghi ở run N phải còn ở run N+1
+   (project kept, DB, file). Lớp này đã phát hiện wrapper silent-fail
+   (exit 0 trong khi import conflict, không output).
+4. **Regression** — chạy lại ít nhất 1 script/tool cũ → behavior không đổi;
+   checksum baseline các file cũ trước/sau phải khớp (trừ phần append có chủ ý).
+
+- Chạy tuần tự nếu VM yếu (bài học: >2 `analyzeHeadless` song song trên VM
+  7.7Gi RAM → OOM kill exit 137).
+- Bug tìm được → 1 file trong `~/workspace/bug-patterns/` ngay (theo
+  `RULES.md`), fix qua vòng edit→review như batch thường; gate phase tiếp
+  theo chỉ mở khi hết bug crash.
 
 ---
 
