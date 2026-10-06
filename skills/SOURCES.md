@@ -14,6 +14,7 @@ thì giữ nguyên ở đó.
 | ai-regression-testing, eval-harness, verification-loop, kotlin-testing, kotlin-patterns, android-clean-architecture, api-design, compose-multiplatform-patterns, error-handling, agent-self-evaluation, agent-architecture-audit, context-budget, parallel-execution-optimizer, documentation-lookup, tdd-workflow, git-workflow | [affaan-m/ecc](https://github.com/affaan-m/ecc) | MIT © 2026 Affaan Mustafa |
 | uv, update-changelog, summarize, librarian, ghidra, commit, github | [mitsuhiko/agent-stuff](https://github.com/mitsuhiko/agent-stuff) | xem repo gốc |
 | judge, mcp, search-playbook, review-loop, preflight-edit, linkage-checks | Pi/Muse tự build | MIT (theo frame) |
+| architecture-map | Boss (filebin zip, 2026-10-06) | không rõ — giữ nguyên nội dung gốc |
 | mcp-builder, yeet | Boss (filebin zip, 2026-09-30) | Apache-2.0 (`LICENSE.txt` trong thư mục skill) |
 | verify-before-claiming, golang-patterns, technical-scoping-workflow | Boss (filebin zip, 2026-09-30) | không rõ — giữ nguyên nội dung gốc |
 | typesafe-ai | [typesafe-ai/skills](https://github.com/typesafe-ai/skills) | MIT |
