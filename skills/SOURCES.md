@@ -28,6 +28,7 @@ thì giữ nguyên ở đó.
 - `eval-harness`: đã gỡ section trỏ script không tồn tại.
 - `mcp`: đã sửa tên server cho khớp config thực tế.
 - `kotlin-patterns`: đã gộp nội dung từ `kotlin-coroutines-flows`.
+- `ghidra` (2026-10-06): thêm 5 script headless mới (RenameSymbol, AddComment, ExportXrefs, ExportDisassembly, SearchStrings) + section "Modify & Advanced Scripts" trong SKILL.md; 6 script gốc nguyên vẹn.
 
 ## Không bundle
 

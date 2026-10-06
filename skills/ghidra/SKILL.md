@@ -252,3 +252,65 @@ Explicitly specify the processor:
 3. **Use jq for JSON parsing** - The JSON exports are designed to be machine-readable
 4. **Decompilation isn't perfect** - Use it as a guide, cross-reference with disassembly
 5. **Large binaries take time** - Use `--timeout` and consider `--no-analysis` for quick scans
+
+---
+
+## Modify & Advanced Scripts
+
+### RenameSymbol.java
+Rename a symbol at an address (function, data, or label). If the address lies
+inside a function, the function is renamed; otherwise the symbol at the
+address is renamed (a new label is created if none exists). Uses
+`SourceType.USER_DEFINED`.
+
+**Output:** `{name}_rename.json` — `address`, `status`, `kind`, `oldName`, `newName`, `error`
+
+```bash
+./scripts/ghidra-analyze.sh -s RenameSymbol.java -a "0x00123456 my_func" -o ./output binary
+```
+
+### AddComment.java
+Add a comment at an address. Type must be one of:
+`plate`, `pre`, `eol`, `post`, `repeatable` (anything else is rejected with an
+error listing the valid types).
+
+**Output:** `{name}_comment.json` — includes a read-back `verified` flag
+
+```bash
+./scripts/ghidra-analyze.sh -s AddComment.java -a "0x00123456 eol check return value here" -o ./output binary
+```
+
+### ExportXrefs.java
+List cross-references for an address — code AND data xrefs, not just the call
+graph. Direction: `to` (refs pointing at the address), `from` (refs leaving
+it), or `both` (default).
+
+**Output:** `{name}_xrefs.json` — each entry has `from`, `to`, `fromFunction`,
+`refType`, `isMemoryReference`
+
+```bash
+./scripts/ghidra-analyze.sh -s ExportXrefs.java -a "0x00123456 both" -o ./output binary
+```
+
+### ExportDisassembly.java
+Export disassembly for an address range, or for the whole function containing
+a single address.
+
+**Output:** `{name}_disassembly.txt` — one instruction per line:
+`address: bytes  mnemonic operands` (data units are marked `; data`)
+
+```bash
+./scripts/ghidra-analyze.sh -s ExportDisassembly.java -a "0x00101000 0x00101100" -o ./output binary
+./scripts/ghidra-analyze.sh -s ExportDisassembly.java -a "0x00101000" -o ./output binary
+```
+
+### SearchStrings.java
+Regex-search raw memory (loaded + initialized blocks), including matches that
+Ghidra never defined as strings. Bytes are decoded 1:1 to chars before the
+Java regex is applied. Caps: 5000 matches, 200 display chars per match.
+
+**Output:** `{name}_searchstrings.json`
+
+```bash
+./scripts/ghidra-analyze.sh -s SearchStrings.java -a "Error.*failed 6" -o ./output binary
+```
