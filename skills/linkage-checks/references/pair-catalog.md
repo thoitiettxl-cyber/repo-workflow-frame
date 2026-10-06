@@ -33,6 +33,15 @@ writing the check — these are starting points, not guarantees.
 | 12 | Event name emitted | Event name subscribed | Event nobody handles |
 | 13 | MCP tool documented | Tool implemented in handler | Doc lies / tool missing |
 
+## CI / repo hygiene
+| # | A | B | Breaks as |
+|---|---|---|---|
+| 14 | Check script in `scripts/checks/` | Reference in CI workflow (`.github/workflows/*.yml`) | Check never runs — dead file, false sense of safety |
+
+Extract A: executable `*.sh` under `scripts/checks/` (basename). Scan B:
+workflow YAML files for the script name. Escape hatch: `NO_CI_WIRE: <reason>`
+comment at the top of the script (e.g. manual-only diagnostic tools).
+
 ## Choosing
 Prefer pairs where (a) drift already caused a real bug, (b) both sides are
 statically extractable, (c) the check runs in seconds. Start with one pair;
