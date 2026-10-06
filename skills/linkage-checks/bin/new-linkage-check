@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# new-linkage-check — scaffold a linkage check script + fixture skeleton.
+#
+# Usage: new-linkage-check <check-name> [--repo DIR]
+#
+# Creates:
+#   <repo>/scripts/checks/<check-name>.sh                 (from the template, executable)
+#   <repo>/scripts/checks/tests/fixtures/<check-name>/pass/README.md
+#   <repo>/scripts/checks/tests/fixtures/<check-name>/fail/README.md
+#   <repo>/scripts/checks/tests/fixtures/<check-name>/exempt/README.md
+#
+# The generated script contains FILL: markers — fill parse-A, scan-B,
+# compare and the escape hatch, then prove it with the three fixtures.
+
+set -euo pipefail
+
+SKILL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+TEMPLATE="$SKILL_DIR/assets/check-template.sh"
+
+usage() { echo "usage: new-linkage-check <check-name> [--repo DIR]" >&2; exit 2; }
+
+NAME=""
+REPO="."
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --repo) REPO="${2:-}"; shift 2 ;;
+        -*) usage ;;
+        *) if [[ -z "$NAME" ]]; then NAME="$1"; else usage; fi; shift ;;
+    esac
+done
+[[ -n "$NAME" && -n "$REPO" ]] || usage
+[[ "$NAME" =~ ^[a-z0-9][a-z0-9-]*$ ]] || { echo "check-name must be lowercase alphanumeric + dashes" >&2; exit 2; }
+[[ -f "$TEMPLATE" ]] || { echo "template not found: $TEMPLATE" >&2; exit 2; }
+
+CHECKS_DIR="$REPO/scripts/checks"
+SCRIPT="$CHECKS_DIR/$NAME.sh"
+FIXDIR="$CHECKS_DIR/tests/fixtures/$NAME"
+
+[[ -e "$SCRIPT" ]] && { echo "already exists: $SCRIPT" >&2; exit 2; }
+
+mkdir -p "$CHECKS_DIR" "$FIXDIR/pass" "$FIXDIR/fail" "$FIXDIR/exempt"
+sed "s/FILL: <check-name>/linkage check: $NAME/" "$TEMPLATE" > "$SCRIPT"
+chmod +x "$SCRIPT"
+
+for fx in pass fail exempt; do
+    cat > "$FIXDIR/$fx/README.md" <<EOF
+# Fixture: $fx ($NAME)
+
+FILL: miniature A/B trees for this fixture.
+
+- **pass/**: every A definition appears at B (script must exit 0).
+- **fail/**: one synthetic offender at A with no B reference and no
+  escape-hatch marker (script must exit non-zero and name it).
+- **exempt/**: offender carrying the escape-hatch marker
+  (script must exit 0 and list it as exempt).
+
+Point the script's env overrides at these dirs to run, e.g.:
+
+    A_FILE=\$PWD/pass/a.txt B_DIR=\$PWD/pass ./scripts/checks/$NAME.sh
+EOF
+done
+
+echo "created:"
+echo "  $SCRIPT"
+echo "  $FIXDIR/{pass,fail,exempt}/README.md"
+echo "next: fill the FILL: sections, then prove pass/fail/exempt."
