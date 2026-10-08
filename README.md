@@ -20,7 +20,7 @@ Một repo mà agent (người hoặc AI) cùng làm việc lâu dài cần ba t
 
 - **Khung này là đường ray**: nó quy định việc nằm ở đâu, kỷ luật thế nào,
   chuẩn hoàn tất ra sao. Nó không dạy cách làm từng việc cụ thể.
-- **Skill là đầu máy** chạy trên đường ray đó: 52 skill trong
+- **Skill là đầu máy** chạy trên đường ray đó: 58 skill trong
   `docs/pairing-skills.md` đã bundle sẵn ở `skills/` (nguồn + license:
   `skills/SOURCES.md`); cài bằng `scripts/install.sh --with-skills`.
   Skill dạy *cách làm* từng việc; output của chúng được đặt đúng chỗ
@@ -47,7 +47,7 @@ docs/
 └── pairing-skills.md          # harness: workflow trung tâm, skill vệ tinh
 scripts/
 └── install.sh                # dựng khung vào repo bất kỳ (+ opt-in cài skill bundle)
-skills/                       # 52 skill vệ tinh (SOURCES.md: nguồn + license)
+skills/                       # 58 skill vệ tinh (SOURCES.md: nguồn + license)
 ```
 
 ## Dùng nhanh
@@ -56,7 +56,7 @@ Dựng khung vào một repo có sẵn (idempotent — chạy nhiều lần an t
 
 ```bash
 ./scripts/install.sh /đường/dẫn/tới/repo
-# kèm skill bundle (52 skill) vào thư mục skill của bạn:
+# kèm skill bundle (58 skill) vào thư mục skill của bạn:
 ./scripts/install.sh /đường/dẫn/tới/repo --with-skills [--skills-dir DIR]
 ```
 

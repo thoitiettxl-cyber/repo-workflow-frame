@@ -98,15 +98,17 @@ không bao giờ gây trùng việc.
 - Sau `git add`, trước `git commit`: chạy `scripts/githooks/stamp.sh` để đóng
   dấu staged diff (pre-commit hook verify; enforcing mode chặn commit không dấu).
   Worker KHÔNG BAO GIỜ dùng `git commit --no-verify`.
-- **Thanh kiểm duyệt cực nghiêm (mặc định từ 2026-10-05, Boss duyệt):** reviewer
-  áp dụng `review-loop` §8 — API phải có citation (không bịa), comment khớp code
-  1-1, literal chính xác từng ký tự, không code chết; reviewer verify độc lập,
-  không tin lời writer. Brief chiến dịch nào muốn hạ thanh phải ghi rõ lý do và
-  được Boss duyệt — reviewer không bao giờ tự hạ.
+- **Thanh kiểm duyệt cực nghiêm (mặc định từ 2026-10-05, Boss duyệt):** định
+  nghĩa tại chỗ (review-loop chỉ có §1–§7, không có §8) — API phải có citation
+  (không bịa), comment khớp code 1-1, literal chính xác từng ký tự, không code
+  chết; reviewer verify độc lập, không tin lời writer. Brief chiến dịch nào
+  muốn hạ thanh phải ghi rõ lý do và được Boss duyệt — reviewer không bao giờ
+  tự hạ.
 - CI đỏ → writer fix, nhưng phân biệt (bài học hma-essence B4, 2026-10-04):
-  **cùng 1 lỗi đỏ 3 lần liên tiếp** → DỪNG, báo root/Boss ngay (going nowhere,
-  cấm attempt thứ 4 y hệt). **Mỗi lần 1 lỗi khác nhau** → được tiếp tục fix
-  (đó là tiến triển, không phải kẹt), nhưng mỗi attempt phải ghi chú
+  **cùng 1 lỗi đỏ lần thứ 2** → CẤM retry y hệt: phải đổi cách (worker khác,
+  đổi chiến thuật, hoặc escalate). **Lần thứ 3 liên tiếp vẫn y hệt** → DỪNG,
+  báo root/Boss ngay (going nowhere). **Mỗi lần 1 lỗi khác nhau** → được tiếp
+  tục fix (đó là tiến triển, không phải kẹt), nhưng mỗi attempt phải ghi chú
   "lỗi cũ → lỗi mới" vào nhật ký batch. Trần cứng: 5 attempt/batch —
   quá thì dừng, báo root/Boss.
 - "Báo root/Boss" = **ghi file** `batches/<batch>-escalation.md` (trạng thái

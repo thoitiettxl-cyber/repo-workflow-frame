@@ -1,6 +1,6 @@
 # Nguồn skill trong bundle
 
-56 skill khớp đúng bản đồ phase → skill trong
+58 skill khớp đúng bản đồ phase → skill trong
 [`docs/pairing-skills.md`](../docs/pairing-skills.md). Skill **triage** không
 bundle (đã loại khỏi harness — xem pairing doc).
 

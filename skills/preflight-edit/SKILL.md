@@ -98,8 +98,9 @@ minidom.parse(...)"` sau mỗi batch chạm XML.
 In a campaign, **workers do not edit files directly**.  The edit armor is
 enforced by process:
 
-1. **Worker contract** — the worker's handoff ends with the edit script
-   (fenced block or a scratch file under the goal's `hidden_files/`).
+1. **Worker contract** — the worker submits the edit script as a file in the
+   campaign plan's `scratch/` directory (NOT in the handoff, NOT in
+   `hidden_files/`). The batch result goes to `batches/<batch>-<role>-result.md`.
    Allowed paths are listed in the worker's contract as usual.
 2. **Coordinator preflight** — coordinator saves the script and runs
    `preflight-edit check --cwd <repo>`.  On failure it sends the CLI's
